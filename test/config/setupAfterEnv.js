@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 
 const mongoManager = require("../../mongo/connection");
+jest.setTimeout(3000);
 
 beforeAll(async () => {
   mongoManager.connect();
