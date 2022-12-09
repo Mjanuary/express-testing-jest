@@ -1,5 +1,4 @@
-const { Types } = require("mongoose");
-const UserModel = require("./../models");
+const { UserModel } = require("../models");
 
 class UserService {
   static getUsers = async () => {

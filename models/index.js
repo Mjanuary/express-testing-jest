@@ -1,3 +1,3 @@
-const UsersSchema = require("./User");
+const UsersSchema = require("./User.models");
 
-module.exports = UsersSchema;
+module.exports = { UsersSchema };
