@@ -1,4 +1,3 @@
-const express = require("express");
 const { Types } = require("mongoose");
 const { UserService } = require("../service");
 const errorHandler = require("../utils/error");

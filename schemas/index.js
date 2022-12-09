@@ -1,3 +1,5 @@
-export * from "./Blogs.schema";
-export * from "./Comment.schema";
-export * from "./User";
+const UsersSchema = require("./User.schema");
+
+module.exports = {
+  UsersSchema,
+};
