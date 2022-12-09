@@ -16,6 +16,7 @@ class MongoManager {
 
   connect() {
     try {
+      console.log(`Connecting to ${this.getMongoUrl()} database`);
       return mongoose.connect(this.getMongoUrl(), {
         useNewUrlParser: true,
         useUnifiedTopology: true,
