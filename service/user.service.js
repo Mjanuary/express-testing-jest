@@ -1,10 +1,9 @@
-const { Types } = require("mongoose");
-const UserModel = require("./../models");
+const { UsersModel } = require("../models");
 
 class UserService {
   static getUsers = async () => {
     try {
-      return await UserModel.find();
+      return await UsersModel.find();
     } catch (e) {
       throw e;
     }
@@ -12,10 +11,10 @@ class UserService {
 
   static createUser = async (user) => {
     try {
-      let checkEmail = await UserModel.find({ email: user.email });
+      let checkEmail = await UsersModel.find({ email: user.email });
       if (checkEmail.length >= 1) throw new Error("Email already exists");
 
-      return await UserModel.create(user);
+      return await UsersModel.create(user);
     } catch (e) {
       throw e;
     }
@@ -24,7 +23,7 @@ class UserService {
   static updateUser = async (user) => {
     try {
       const { email, names, username, _id } = user;
-      return await UserModel.updateOne(
+      return await UsersModel.updateOne(
         { _id },
         {
           $set: {
@@ -41,7 +40,7 @@ class UserService {
 
   static deleteUser = async (userId) => {
     try {
-      return await UserModel.deleteOne({ _id: userId });
+      return await UsersModel.deleteOne({ _id: userId });
     } catch (e) {
       throw e;
     }
