@@ -22,8 +22,6 @@ describe("Test authentication routes", () => {
         .set("Content-Type", "application/json")
         .set("Accept", "application/json")
         .end(async (err, result) => {
-          console.log({ err, result });
-
           if (err) {
             done(err);
           }
