@@ -2,7 +2,7 @@ const request = require("supertest");
 const app = require("../../server");
 const { UsersModel } = require("../../models");
 
-describe("Test authentication routes", () => {
+describe("Test users routes", () => {
   const server = request(app);
 
   beforeAll(async () => {});
@@ -11,13 +11,13 @@ describe("Test authentication routes", () => {
   });
 
   describe("/users", () => {
-    it("should respond with default auth object", (done) => {
+    it("should respond with data when user is created", (done) => {
       server
         .post("/users")
         .send({
-          username: "Alice KEVIN",
-          email: "jamesalice@gmail.com",
-          names: "Alice New",
+          username: "james",
+          email: "james@gmail.com",
+          names: "NEW James",
         })
         .set("Content-Type", "application/json")
         .set("Accept", "application/json")
@@ -35,9 +35,10 @@ describe("Test authentication routes", () => {
           expect(typeof result.body.names).toBe("string");
           expect(typeof result.body._id).toBe("string");
 
-          expect(result.body.username).toBe("Alice KEVIN");
-          expect(result.body.email).toBe("jamesalice@gmail.com");
-          expect(result.body.names).toBe("Alice New");
+          // Check the values
+          expect(result.body.username).toBe("james");
+          expect(result.body.email).toBe("james@gmail.com");
+          expect(result.body.names).toBe("NEW James");
 
           done();
         });
