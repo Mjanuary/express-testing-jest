@@ -3,6 +3,6 @@ const {
   createUser,
   updateUser,
   deleteUser,
-} = require("./Users.controller");
+} = require("./Users.controllers");
 
 module.exports = { AllUsers, createUser, updateUser, deleteUser };
