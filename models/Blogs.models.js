@@ -1,9 +1,9 @@
 const mongoose = require("mongoose");
 const { SchemasTypes, CollectionEnum } = require("../enums");
-const { UsersSchema } = require("../schemas");
+const { BlogsSchema } = require("../schemas");
 
 module.exports = mongoose.model(
-  SchemasTypes.User,
-  UsersSchema,
-  CollectionEnum.users
+  SchemasTypes.Blog,
+  BlogsSchema,
+  CollectionEnum.blogs
 );

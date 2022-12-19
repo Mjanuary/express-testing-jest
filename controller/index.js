@@ -5,4 +5,24 @@ const {
   deleteUser,
 } = require("./Users.controllers");
 
-module.exports = { AllUsers, createUser, updateUser, deleteUser };
+const {
+  AllBlogs,
+  createBlogs,
+  blogDetails,
+  likeDislikeBlog,
+  deleteBlog,
+  updateBlog,
+} = require("./Blog.controllers");
+
+module.exports = {
+  AllUsers,
+  createUser,
+  updateUser,
+  deleteUser,
+  AllBlogs,
+  createBlogs,
+  blogDetails,
+  likeDislikeBlog,
+  deleteBlog,
+  updateBlog,
+};
