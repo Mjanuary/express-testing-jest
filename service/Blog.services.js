@@ -1,6 +1,6 @@
 const { BlogModel, UsersModel } = require("../models");
-const { SortByEnum } = require("../enums");
-const { getPage } = require("../utils");
+const { SortByEnum, CollectionEnum } = require("../enums");
+const { getPage } = require("../utils/functions");
 
 class BlogService {
   static sortBlog(sortBy) {
