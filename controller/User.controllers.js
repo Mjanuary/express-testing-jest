@@ -2,7 +2,7 @@ const { Types } = require("mongoose");
 const { UserService } = require("../service");
 const errorHandler = require("../utils/error");
 
-const AllUsers = async (req, res) => {
+const getUsers = async (req, res) => {
   try {
     let data = await UserService.getUsers();
 
@@ -14,11 +14,15 @@ const AllUsers = async (req, res) => {
 
 const createUser = async (req, res) => {
   try {
-    const { username, email, names } = req.body;
+    const { username, email, name } = req.body;
+
+    let user = await UserService.getUser({ email });
+    if (user.length >= 1) throw new Error("Email already exists");
+
     let data = await UserService.createUser({
       username,
       email,
-      names,
+      name,
       createdAt: new Date(),
     });
 
@@ -30,12 +34,12 @@ const createUser = async (req, res) => {
 
 const updateUser = async (req, res) => {
   try {
-    const { username, email, names, userId } = req.body;
+    const { username, email, name, userId } = req.body;
 
     let data = await UserService.updateUser({
       username,
       email,
-      names,
+      name,
       _id: new Types.ObjectId(userId),
     });
 
@@ -56,7 +60,7 @@ const deleteUser = async (req, res) => {
 };
 
 module.exports = {
-  AllUsers,
+  getUsers,
   createUser,
   updateUser,
   deleteUser,

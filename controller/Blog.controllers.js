@@ -1,27 +1,27 @@
 const { Types } = require("mongoose");
-const { BlogService } = require("../service");
+const { BlogService, UserService } = require("../service");
 const errorHandler = require("../utils/error");
 const { BlogStatus, SortByEnum } = require("../enums");
 
-const AllBlogs = async (req, res) => {
+const getBlogs = async (req, res) => {
   try {
     const {
       page = 1,
       limit = 25,
-      // sortBy = SortByEnum.ACCEDING, // Sort is not yet implemented
+      sortBy = SortByEnum.ACCEDING,
       withAuthor = false,
       createdBy,
     } = req.query;
 
-    const envelopeActivities = await BlogService.getBlogs({
+    const blogs = await BlogService.getBlogs({
       page: +page,
       limit: +limit,
-      sortBy: SortByEnum.ACCEDING,
+      sortBy,
       withAuthor: !!withAuthor,
       createdBy: typeof createdBy === "string" ? createdBy : undefined,
     });
 
-    return res.send(envelopeActivities);
+    return res.send(blogs);
   } catch (error) {
     errorHandler(res, error);
   }
@@ -30,6 +30,19 @@ const AllBlogs = async (req, res) => {
 const createBlogs = async (req, res) => {
   try {
     const { cover_url, description, title, createdBy, tags } = req.body;
+
+    let user = await UserService.getUser({
+      userId: new Types.ObjectId(createdBy),
+    });
+
+    if (user.length <= 0)
+      throw new Error("Please provide a valid createdBy value");
+
+    let blog = await BlogService.checkBlogExist(title);
+    if (blog.length >= 1)
+      throw new Error(
+        "This title has been used before, please pick another title"
+      );
 
     let data = await BlogService.createBlog({
       cover_url: cover_url,
@@ -54,6 +67,23 @@ const createBlogs = async (req, res) => {
 const updateBlog = async (req, res) => {
   try {
     const { cover_url, description, title, createdBy, tags, blogId } = req.body;
+
+    let user = await UserService.getUser({
+      userId: new Types.ObjectId(createdBy),
+    });
+
+    if (user.length <= 0)
+      throw new Error("Please provide a valid createdBy value");
+
+    let blog = await BlogService.checkBlogExist(
+      title,
+      new Types.ObjectId(blogId)
+    );
+
+    if (blog.length >= 1)
+      throw new Error(
+        "This title has been used before, please pick another title"
+      );
 
     let data = await BlogService.updateBlog({
       cover_url,
@@ -113,7 +143,7 @@ const likeDislikeBlog = async (req, res) => {
 };
 
 module.exports = {
-  AllBlogs,
+  getBlogs,
   createBlogs,
   blogDetails,
   likeDislikeBlog,

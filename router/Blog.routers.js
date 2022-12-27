@@ -2,7 +2,7 @@ const express = require("express");
 const { check } = require("express-validator");
 const { SortByEnum } = require("../enums");
 const {
-  AllBlogs,
+  getBlogs,
   createBlogs,
   blogDetails,
   deleteBlog,
@@ -31,7 +31,7 @@ router.get(
     check("userId").optional().isMongoId(),
     check("sortBy").optional().isIn(Object.values(SortByEnum)),
   ],
-  AllBlogs
+  getBlogs
 );
 
 router.post(
