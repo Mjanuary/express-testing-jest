@@ -8,7 +8,7 @@ const UsersSchema = new mongoose.Schema({
   email: {
     type: String,
   },
-  names: {
+  name: {
     type: String,
   },
   createdAt: Date,

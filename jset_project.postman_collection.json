@@ -46,7 +46,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"username\": \"Alice\",\n    \"email\": \"alice20@gmail.com\",\n    \"names\": \"Alice New\"\n}",
+							"raw": "{\n    \"username\": \"Alice\",\n    \"email\": \"alice20@gmail.com\",\n    \"name\": \"Alice New\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -133,6 +133,176 @@
 									"value": "1",
 									"disabled": true
 								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Posts",
+			"item": [
+				{
+					"name": "Get All Blogs",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"James\",\n    \"email\": \"james@gmail.com\",\n    \"names\": \"JAMES\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/blogs?page=1&limit=4&withAuthor=true&userId=6390ac9cacead6ac31b196ab&sortBy=ASC",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"blogs"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "4"
+								},
+								{
+									"key": "withAuthor",
+									"value": "true"
+								},
+								{
+									"key": "userId",
+									"value": "6390ac9cacead6ac31b196ab"
+								},
+								{
+									"key": "sortBy",
+									"value": "ASC"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Blog",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"createdBy\": \"6390ac9cacead6ac31b196ab\",\n    \"title\": \"This is the best post\",\n    \"description\": \"Alice New\",\n    \"cover_url\": \"localhost:8000/image.png\",\n    \"tags\": [\"car\", \"drive\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/blogs",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"blogs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Blog",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"blogId\":\"639b03c0b02f7228310b28c5\",\n    \"createdBy\": \"6390ac9cacead6ac31b196ab\",\n    \"title\": \"This is the best post of cars\",\n    \"description\": \"Alice New\",\n    \"cover_url\": \"localhost:8000/image.png\",\n    \"tags\": [\"car\", \"drive\", \"Collection\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/blogs",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"blogs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Blog details",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/blogs/639b03c0b02f7228310b28c5",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"blogs",
+								"639b03c0b02f7228310b28c5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post reaction",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"blogId\": \"6390f9bd38b7c103337dcf78\",\n    \"userId\": \"6390f9bd38b7c103337dcf78\",\n    \"action\": \"LIKE\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/blogs/reaction",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"blogs",
+								"reaction"
 							]
 						}
 					},

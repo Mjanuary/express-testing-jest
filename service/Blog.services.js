@@ -3,6 +3,10 @@ const { SortByEnum, CollectionEnum } = require("../enums");
 const { getPage } = require("../utils/functions");
 
 class BlogService {
+  /**
+   * @param {*} sortBy
+   * This function receive a value that will comes from the router and return the value that mongoDb can understand.
+   */
   static sortBlog(sortBy) {
     let sort;
     switch (sortBy) {
@@ -44,7 +48,7 @@ class BlogService {
               pipeline: [
                 {
                   $project: {
-                    names: 1,
+                    name: 1,
                   },
                 },
               ],
@@ -123,19 +127,20 @@ class BlogService {
     }
   };
 
-  static createBlog = async (blog) => {
+  static checkBlogExist = async (title, blogId = undefined) => {
     try {
-      let checkUserExist = await UsersModel.find({ _id: blog.createdBy });
-      if (checkUserExist.length <= 0)
-        throw new Error("Please provide a valid createdBy value");
+      let condition = { title };
+      if (blogId) condition._id = { $ne: blogId };
 
-      let checkBlogExistByTitle = await BlogModel.find({ title: blog.title });
-      if (checkBlogExistByTitle.length >= 1)
-        throw new Error(
-          "This title has been used before, please pick another title"
-        );
+      return await BlogModel.find(condition);
+    } catch (e) {
+      throw e;
+    }
+  };
 
-      return await BlogModel.create(blog);
+  static createBlog = async (data) => {
+    try {
+      return await BlogModel.create(data);
     } catch (e) {
       throw e;
     }
@@ -149,22 +154,8 @@ class BlogService {
     }
   };
 
-  static updateBlog = async (blog) => {
+  static updateBlog = async (data) => {
     try {
-      let checkUserExist = await UsersModel.find({ _id: blog.createdBy });
-
-      if (checkUserExist.length <= 0)
-        throw new Error("Please provide a valid createdBy value");
-
-      let checkBlogExistByTitle = await BlogModel.find({
-        title: blog.title,
-        _id: { $ne: blog._id },
-      });
-      if (checkBlogExistByTitle.length >= 1)
-        throw new Error(
-          "This title has been used before, please pick another title"
-        );
-
       const {
         cover_url,
         createdAt,
@@ -174,7 +165,7 @@ class BlogService {
         tags,
         title,
         _id,
-      } = blog;
+      } = data;
 
       return await BlogModel.updateOne(
         { _id },
@@ -210,7 +201,7 @@ class BlogService {
             pipeline: [
               {
                 $project: {
-                  names: 1,
+                  name: 1,
                 },
               },
             ],
@@ -255,11 +246,11 @@ class BlogService {
         },
       ];
 
-      const getBlogs = await BlogModel.aggregate(pipelines);
+      const blogs = await BlogModel.aggregate(pipelines);
 
-      if (getBlogs.length <= 0) throw new Error("No blog found!");
+      if (blogs.length <= 0) throw new Error("No blog found!");
 
-      return getBlogs[0];
+      return blogs[0];
     } catch (e) {
       throw e;
     }
@@ -284,11 +275,11 @@ class BlogService {
         },
       ];
 
-      const getBlogs = await BlogModel.aggregate(pipelines);
+      const blogs = await BlogModel.aggregate(pipelines);
 
-      if (getBlogs.length <= 0) throw new Error("No blog found!");
+      if (blogs.length <= 0) throw new Error("No blog found!");
 
-      return getBlogs[0];
+      return blogs[0];
     } catch (e) {
       throw e;
     }

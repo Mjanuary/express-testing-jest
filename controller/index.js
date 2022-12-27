@@ -1,12 +1,12 @@
 const {
-  AllUsers,
+  getUsers,
   createUser,
   updateUser,
   deleteUser,
-} = require("./Users.controllers");
+} = require("./User.controllers");
 
 const {
-  AllBlogs,
+  getBlogs,
   createBlogs,
   blogDetails,
   likeDislikeBlog,
@@ -15,11 +15,11 @@ const {
 } = require("./Blog.controllers");
 
 module.exports = {
-  AllUsers,
+  getUsers,
   createUser,
   updateUser,
   deleteUser,
-  AllBlogs,
+  getBlogs,
   createBlogs,
   blogDetails,
   likeDislikeBlog,

@@ -9,25 +9,33 @@ class UserService {
     }
   };
 
-  static createUser = async (user) => {
+  static getUser = async (data) => {
+    const { userId, email } = data;
     try {
-      let checkEmail = await UsersModel.find({ email: user.email });
-      if (checkEmail.length >= 1) throw new Error("Email already exists");
-
-      return await UsersModel.create(user);
+      return await UsersModel.find({
+        $or: [{ email: email }, { _id: userId }],
+      });
     } catch (e) {
       throw e;
     }
   };
 
-  static updateUser = async (user) => {
+  static createUser = async (data) => {
     try {
-      const { email, names, username, _id } = user;
+      return await UsersModel.create(data);
+    } catch (e) {
+      throw e;
+    }
+  };
+
+  static updateUser = async (data) => {
+    try {
+      const { email, name, username, _id } = data;
       return await UsersModel.updateOne(
         { _id },
         {
           $set: {
-            names,
+            name,
             email,
             username,
           },
