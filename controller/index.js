@@ -12,6 +12,8 @@ const {
   likeDislikeBlog,
   deleteBlog,
   updateBlog,
+  toggleLike,
+  toggleDislike
 } = require("./Blog.controllers");
 
 module.exports = {
@@ -25,4 +27,6 @@ module.exports = {
   likeDislikeBlog,
   deleteBlog,
   updateBlog,
+  toggleLike,
+  toggleDislike
 };
