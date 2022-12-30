@@ -19,7 +19,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"username\": \"James\",\n    \"email\": \"james@gmail.com\",\n    \"names\": \"JAMES\"\n}",
+              "raw": "{\n    \"username\": \"James\",\n    \"email\": \"james@gmail.com\",\n    \"name\": \"JAMES\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -65,7 +65,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"userId\": \"6390ac9cacead6ac31b196ab\",\n    \"username\": \"Alice\",\n    \"email\": \"alice@gmail.com\",\n    \"names\": \"Alice New\"\n}",
+              "raw": "{\n    \"userId\": \"6390ac9cacead6ac31b196ab\",\n    \"username\": \"Alice\",\n    \"email\": \"alice@gmail.com\",\n    \"name\": \"Alice New\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -136,7 +136,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"username\": \"James\",\n    \"email\": \"james@gmail.com\",\n    \"names\": \"JAMES\"\n}",
+              "raw": "{\n    \"username\": \"James\",\n    \"email\": \"james@gmail.com\",\n    \"name\": \"JAMES\"\n}",
               "options": {
                 "raw": {
                   "language": "json"

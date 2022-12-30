@@ -17,7 +17,7 @@ describe("Test users routes", () => {
         .send({
           username: "james",
           email: "james@gmail.com",
-          names: "NEW James",
+          name: "NEW James",
         })
         .set("Content-Type", "application/json")
         .set("Accept", "application/json")
@@ -32,13 +32,13 @@ describe("Test users routes", () => {
           // Check data types
           expect(typeof result.body._id).toBe("string");
           expect(typeof result.body.email).toBe("string");
-          expect(typeof result.body.names).toBe("string");
+          expect(typeof result.body.name).toBe("string");
           expect(typeof result.body._id).toBe("string");
 
           // Check the values
           expect(result.body.username).toBe("james");
           expect(result.body.email).toBe("james@gmail.com");
-          expect(result.body.names).toBe("NEW James");
+          expect(result.body.name).toBe("NEW James");
 
           done();
         });
