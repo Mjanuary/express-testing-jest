@@ -1,9 +1,9 @@
 const { UsersModel } = require("../models");
 
 class UserService {
-  static getUsers = async () => {
+  static getUsers = async (filters) => {
     try {
-      return await UsersModel.find();
+      return await UsersModel.find(filters);
     } catch (e) {
       throw e;
     }
