@@ -3,8 +3,16 @@ const { UserService } = require("../service");
 const errorHandler = require("../utils/error");
 
 const getUsers = async (req, res) => {
+  const { createdAt } = req.query;
+
   try {
-    let data = await UserService.getUsers();
+    let filters = {};
+
+    if(createdAt){
+      filters["createdAt"] = {"$gte": new Date(createdAt).setHours(0, 0, 0)};
+    }
+
+    let data = await UserService.getUsers(filters);
 
     return res.send(data);
   } catch (error) {

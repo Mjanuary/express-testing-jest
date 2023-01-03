@@ -142,7 +142,7 @@ const likeDislikeBlog = async (req, res) => {
   }
 };
 
-export const toggleLike = async (req, res) => {
+const toggleLike = async (req, res) => {
   try {
 
     const { blogId } = req.params;
@@ -177,7 +177,7 @@ export const toggleLike = async (req, res) => {
   }
 };
 
-export const toggleDislike = async (req, res) => {
+const toggleDislike = async (req, res) => {
   try {
 
     const { blogId } = req.params;
@@ -219,4 +219,6 @@ module.exports = {
   likeDislikeBlog,
   deleteBlog,
   updateBlog,
+  toggleLike,
+  toggleDislike
 };
