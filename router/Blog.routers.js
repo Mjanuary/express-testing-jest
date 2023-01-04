@@ -8,6 +8,8 @@ const {
   deleteBlog,
   updateBlog,
   likeDislikeBlog,
+  toggleLike,
+  toggleDislike
 } = require("../controller");
 
 const router = express.Router();
@@ -80,5 +82,15 @@ router.get(
   [check("blogId").isString().withMessage("blogId required")],
   blogDetails
 );
+
+router.post("/:blogId/like", [
+  check("blogId").isMongoId().withMessage("blogId required"),
+  check("userId").isMongoId().withMessage("userId required")
+], toggleLike);
+
+router.post("/:blogId/dislike", [
+  check("blogId").isMongoId().withMessage("blogId required"),
+  check("userId").isMongoId().withMessage("userId required")
+], toggleDislike);
 
 module.exports = router;

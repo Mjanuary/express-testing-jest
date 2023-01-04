@@ -142,6 +142,76 @@ const likeDislikeBlog = async (req, res) => {
   }
 };
 
+const toggleLike = async (req, res) => {
+  try {
+
+    const { blogId } = req.params;
+    const { userId } = req.body;
+
+    const blog = await BlogService.getBlogById(blogId);
+
+    if(!blog){
+
+      return res.status(404).send({message: 'Blog not found'});
+    }
+
+    let likedBlog = await BlogService.findBlogByUserLike(blogId, userId);
+
+    if(likedBlog){
+      await BlogService.removeLike(blogId, userId);
+      return res.send({message: "User like removed"});
+    }
+
+    const dislikedBlog = await BlogService.findBlogByUserDislike(blogId, userId);
+
+    if(dislikedBlog){
+      await BlogService.removeDislike(blogId, userId);
+    }
+
+    const data = await BlogService.likeBlog(blogId, userId);
+
+    return res.send(data);
+
+  } catch (error) {
+    errorHandler(res, error);
+  }
+};
+
+const toggleDislike = async (req, res) => {
+  try {
+
+    const { blogId } = req.params;
+    const { userId } = req.body;
+
+    const blog = await BlogService.getBlogById(blogId);
+
+    if(!blog){
+
+      return res.status(404).send({message: 'Blog not found'});
+    }
+
+    let dislikedBlog = await BlogService.findBlogByUserDislike(blogId, userId);
+
+    if(dislikedBlog){
+      await BlogService.removeDislike(blogId, userId);
+      return res.send({message: "User dislike removed"});
+    }
+
+    const likedBlog = await BlogService.findBlogByUserLike(blogId, userId);
+
+    if(likedBlog){
+      await BlogService.removeLike(blogId, userId);
+    }
+    
+    const data = await BlogService.dislikeBlog(blogId, userId);
+
+    return res.send(data);
+
+  } catch (error) {
+    errorHandler(res, error);
+  }
+};
+
 module.exports = {
   getBlogs,
   createBlogs,
@@ -149,4 +219,6 @@ module.exports = {
   likeDislikeBlog,
   deleteBlog,
   updateBlog,
+  toggleLike,
+  toggleDislike
 };

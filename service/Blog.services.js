@@ -127,6 +127,16 @@ class BlogService {
     }
   };
 
+  static getBlogById = async (blogId) => {
+    try {
+
+      return await BlogModel.findOne({_id: blogId});
+
+    } catch (e) {
+      throw e;
+    }
+  }
+
   static checkBlogExist = async (title, blogId = undefined) => {
     try {
       let condition = { title };
@@ -284,6 +294,78 @@ class BlogService {
       throw e;
     }
   };
+
+  static findBlogByUserLike = async(blogId, userId) => {
+    try { 
+
+     return await BlogModel.findOne({_id: blogId, 'reactions.likes': userId});
+
+    } catch (e) {
+       throw e;
+    }
+   }
+ 
+   static findBlogByUserDislike = async(blogId, userId) => {
+     try {
+
+      return await BlogModel.findOne({_id: blogId, 'reactions.dislikes': userId});
+
+     } catch (e) {
+        throw e;
+     }
+    }
+ 
+    static likeBlog = async(blogId, userId) => {
+     try {
+
+      return await BlogModel.findOneAndUpdate({_id: blogId}, {
+        $push: {'reactions.likes': userId},
+       }, {
+        new: true,
+       });
+
+     } catch (e) {
+        throw e;
+     }
+    }
+ 
+    static dislikeBlog = async(blogId, userId) => {
+     try {
+
+      return await BlogModel.findOneAndUpdate({_id: blogId}, {
+        $push: {'reactions.dislikes': userId},
+       }, {
+        new: true
+       });
+
+     } catch (e) {
+        throw e;
+     }
+    }
+ 
+    static removeLike = async(blogId, userId) => {
+     try {
+  
+      return await BlogModel.findOneAndUpdate({_id: blogId}, {
+        $pull: {'reactions.likes': userId},
+       });
+
+     } catch (e) {
+        throw e;
+     }
+    }
+ 
+    static removeDislike = async(blogId, userId) => {
+     try {
+
+      return await BlogModel.findOneAndUpdate({_id: blogId}, {
+        $pull: {'reactions.dislikes': userId},
+       });
+
+     } catch (e) {
+        throw e;
+     }
+    }
 }
 
 module.exports = BlogService;
