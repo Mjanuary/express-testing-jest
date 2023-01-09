@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-require("dotenv").config();
 mongoose.set("strictQuery", true);
 
 const MONGO_URL = process.env.MONGO_URL;

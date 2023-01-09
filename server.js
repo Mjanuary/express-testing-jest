@@ -1,9 +1,10 @@
 const express = require("express");
 var cors = require("cors");
-const mongoManager = require("./mongo/connection");
 const bodyParser = require("body-parser");
-const router = require("./router");
 require("dotenv").config();
+
+const mongoManager = require("./mongo/connection");
+const router = require("./router");
 
 const app = express();
 const port = process.env.PORT || 8000;
