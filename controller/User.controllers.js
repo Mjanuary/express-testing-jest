@@ -59,9 +59,24 @@ const deleteUser = async (req, res) => {
   }
 };
 
+const getUserById = async (req, res) => {
+  try {
+    const id = req.params.id;
+    let data = await UserService.getUser(id);
+
+    if (data.length <= 0)
+      return res.status(404).send({ message: "Invalid use id" });
+
+    return res.send(data[0]);
+  } catch (error) {
+    errorHandler(res, error);
+  }
+};
+
 module.exports = {
   getUsers,
   createUser,
   updateUser,
   deleteUser,
+  getUserById,
 };

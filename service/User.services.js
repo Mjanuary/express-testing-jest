@@ -53,6 +53,14 @@ class UserService {
       throw e;
     }
   };
+
+  static getUser = async (id) => {
+    try {
+      return await UsersModel.find({ _id: id });
+    } catch (e) {
+      throw e;
+    }
+  };
 }
 
 module.exports = UserService;
