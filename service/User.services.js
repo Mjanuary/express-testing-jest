@@ -13,7 +13,7 @@ class UserService {
     const { userId, email } = data;
     try {
       return await UsersModel.find({
-        $or: [{ email: email }, { _id: userId }],
+        $or: [{ email: email }, { userId: userId }],
       });
     } catch (e) {
       throw e;
@@ -54,13 +54,13 @@ class UserService {
     }
   };
 
-  static getUser = async (id) => {
-    try {
-      return await UsersModel.find({ _id: id });
-    } catch (e) {
-      throw e;
-    }
-  };
+  // static getUser = async (id) => {
+  //   try {
+  //     return await UsersModel.find({ _id: id });
+  //   } catch (e) {
+  //     throw e;
+  //   }
+  // };
 }
 
 module.exports = UserService;
